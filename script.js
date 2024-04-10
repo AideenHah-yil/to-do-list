@@ -23,6 +23,7 @@
         //clear input box
         input.value = "";
     });
+
     ul.addEventListener("click",(e) => {
         let id = e.target.getAttribute("data-id");
         if (!id) return; //user clicked something else
@@ -33,18 +34,30 @@
 
     //functions
     function addItemToArray(itemId, toDoItem) {
-        //add item to array as an object with an ID so we can find and delete it later
-        toDoListArray.push({ itemId, toDoItem });
-        console.log(toDoListArray);
-
+      //create an li
+       const li = document.createElement('li');
+       li.setAttribute("data-id", itemId);
+       //add item to li
+       li.innerHTML = toDoItem;
+       //add li to DOM
+       ul.appendChild(li);
     }
+
+    function addItemToArray(itemId, toDoItem) {
+          //add item to array as an object with an ID so we can find and delete it later
+          toDoListArray.push({ itemId, toDoItem });
+          console.log(toDoListArray);
+    }
+       
+       
     function removeItemFromDOM(id) {
         //get the list item by data id
         var li = document.querySelector('[data-id="' + id + '"]');
         //remove list item
         ul.removeChild(li);
     }
-    function removeItemFromDOM(id) {
+
+    function removeItemFromArray(id) {
         //create a new toDoListArray with all li's that don't match the ID
         toDoListArray = toDoListArray.filter((item) => item.itemId !== id);
         console.log(toDoListArray);
